@@ -20,8 +20,9 @@
 #   George,Gaylord,MI,20000828,010000,M,other,verizon,2315550410,Mr,99.9999,99.9999,average,gangly,-5,Gaylord,MI,-5
 #
 
-
-
+# You need to get your own mapquest key from
+# http://developer.mapquest.com/web/products/dev-services/geocoding-ws 
+# and place it in the MAPQUESTKEY variable below on line 40
 
 #
 # Current date and other constants
@@ -36,7 +37,7 @@ STZONE=`date +%:::z`
 TODAY="$TDAY $TMONTH $TYEAR $TZONE"
 TotalDayMinutes=1440
 
-MAPQUESTKEY="Fmjtd%7Cluur25uyng%2Cas%3Do5-9w7a16"
+MAPQUESTKEY="YOUR-MAPQUEST-API-KEY-HERE"
 STORDIR="$Home/BDay"
 BINDIR="$Home/BDay"
 TMPDIR="$Home/BDay"

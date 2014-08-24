@@ -8,6 +8,11 @@ These scripts are used to send a series of blessings to the "blessed victim".  T
 A special THANKS to Alanon Zander for getting this script started.
 
 
+First You need to get your own mapquest key from
+http://developer.mapquest.com/web/products/dev-services/geocoding-ws 
+and place it in the MAPQUESTKEY variable below on line 40
+The free version has a 5K per day limit.  This should satisfy any non-commercial user.
+
 You will need to create a "victims" data file, which must be a comma separated list as described in bless_victims.sh.  There can be not be any empty or blank lines in the file. The "victims" file can contain a separate line for multiple victims. 
 
 Carrier List; ONLY use the part inside the "" in the victims file
@@ -49,7 +54,7 @@ There are some paths/data that may need to be altered to reflect your desired sy
 
 In send_blessing.sh  62, 64,
 
-In bless_victims.sh  39, 40, 41, 42
+In bless_victims.sh  40, 41, 42, 43
 
 As for moving the directories... 3 paths are recommended.  One for the permanent scripts, one for the data file and one for the temporary data.  Some might want to install the scripts in /usr/bin for all to use, then use "~/BDay" for STORDIR and Temp files might be put in that user's "~/tmp" or in "/tmp/$USER/"  so that is why I have them split up that way.  Many users will do as you suggest and set all 3 the same.  That is why I set up the 3 variables right next to each other.  Easy to change.  The default has all 3 set to to "$HOME/BDay".
 
@@ -57,12 +62,18 @@ As for moving the directories... 3 paths are recommended.  One for the permanent
 
 To use: 
 
-copy these files to some location in your home directory, say $HOME/BDay  Don't forget to adjust the paths described above if needed for your system.
-make bless-victims.sh and send_blessing.sh executable
-create the victims data file as described above
-look through the Blessings.txt file adding and/or removing blessings that should be there specific to the victim, you wouldn't want to send provocative blessings to your mother now would you.  Each blessing needs to be at a new line with a line number followed by a double pipe symbol as in 3||Blessed .....
-run bless_victims.sh
-run the generated file myjobs.sh just prior to sundown to send the text-blessings to your chosen victim on their Hebrew birthday.
+Copy these files to some location in your home directory, say $HOME/BDay  Don't forget to adjust the paths described above if needed for your system.
+
+Make bless-victims.sh and send_blessing.sh executable
+
+Create the victims data file as described above
+
+Look through the Blessings.txt file adding and/or removing blessings that should be there specific to the victim, you wouldn't want to send provocative blessings to your mother now would you.  Each blessing needs to be at a new line with a line number followed by a double pipe symbol as in 3||Blessed .....
+
+Run bless_victims.sh
+
+Run the generated file myjobs.sh just prior to sundown to send the text-blessings to your chosen victim on their Hebrew birthday.
 
 
 
+Shalom Alechem
