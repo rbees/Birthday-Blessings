@@ -1,0 +1,8 @@
+#Data files:
+# Victims file format:
+#   Name,Current City,Current State,birthdate(YYYYMMDD),birthtime(HHmmss),M/F,relation,cellcarrier,text-number,salutation,Long,Lat,height,weight,BirthTimezone,BirthCity,BirthState,CurrentTimezone
+#
+# Examples:
+#   John,Houston,TX,19780127,040500,M,other,att,1235550000,Mr,99.9999,99.9999,tall,slender,-6,Laramie,WY,-7
+#   Jane,Cadillac,MI,19870507.013000,F,wife,att,1235550001,Ms,99.9999,99.9999,short,plump,-5,Salt Lake City,UT,-7
+#   George,Gaylord,MI,20000828,010000,M,other,verizon,2315550410,Mr,99.9999,99.9999,average,gangly,-5,Gaylord,MI,-5

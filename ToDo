@@ -1,0 +1,44 @@
+To Do:
+
+Expand Blessing database to 120 generic blessings.
+
+Build Blessing directory structure to something like
+
+
+           Spouse- Husband- Generic
+                            Provocative
+                            BirthOfChildren
+
+                   Wife- Generic
+                         Provacitive
+                         BirthOfChildren
+
+           Generic - Broken down by 10 year age divisions.
+Blessings-
+                     Boys
+           Children- Girls
+
+           Friends- Male
+                    Female
+
+           Parent- Father
+                   Mother
+
+           Victim-specific-manually-entered-by-user
+
+
+Separate the blessings into individual files in the appropriate directory structure.
+
+Modify the script to use the directory structure and pull blessings that are more specific to the victim.
+
+Modify the script to use ncurses or other to build the victims data file.
+
+Enable 'Forward, Reverse, and Random' order of blessings. Currently controlled by the preceding number in the blessing line.
+
+Separate the salutation part of the blessing off from the blessing and bring it back in as a variable.  Then the salutation, currently "Blessed are You HaShem my G0d, King of the Universe" can be altered more easily by the user.
+
+Fix the script to schedule sending automatically.
+
+Interface to manage 'active victims file from larger database of people.
+
+Considering a config.inc file for configuration, but that gets complex and requires even more changes to the file if they decide to change paths from what we predefine.
