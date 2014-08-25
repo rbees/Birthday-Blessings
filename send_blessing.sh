@@ -61,7 +61,7 @@ fi
 #
 FROM="Crazy Jew"
 I=1
-TMPDIR="$Home/BDay"
+TMPDIR="$HOME/BDay"
 
 #
 #Loop to send emails to email->text gateways

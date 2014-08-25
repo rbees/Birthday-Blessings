@@ -38,9 +38,9 @@ TODAY="$TDAY $TMONTH $TYEAR $TZONE"
 TotalDayMinutes=1440
 
 MAPQUESTKEY="YOUR-MAPQUEST-API-KEY-HERE"
-STORDIR="$Home/BDay"
-BINDIR="$Home/BDay"
-TMPDIR="$Home/BDay"
+STORDIR="$HOME/BDay"
+BINDIR="$HOME/BDay"
+TMPDIR="$HOME/BDay"
 BIN="/bin"
 
 #
@@ -50,8 +50,8 @@ if [ -e "$TMPDIR/myjobs.sh" ]; then
   rm $TMPDIR/myjobs.sh
 fi
 
-echo ""
-echo "Blessing:"
+echo "$STORDIR/victims"
+cat "$STORDIR/victims"
 
 #
 # Read in $STORDIR/vicitms file and process it
@@ -109,6 +109,7 @@ do
           BMonth=`echo ${BMonth:1,1}`
         fi
         AGE=$(($((${TYEAR}))-$((${BYear}))))
+echo "processing carrier"
         case $Carrier in
          att) 
            Domain="mms.att.net"
@@ -172,7 +173,7 @@ do
         CLocData=`echo $CData | awk -F"\" \"" '{printf("%s",$2)}'`
         CLong=`echo $CLocData | awk -F"," '{printf("%s",$7)}' | sed s/\"//g`
         CLati=`echo $CLocData | awk -F"," '{printf("%s",$8)}' | sed s/\"//g`
-
+echo "processing hebrew date"
         #
         #Calculate Hebrew Dates/times
         #
@@ -204,7 +205,7 @@ do
         #Number of times to send blessing, based on age
         Count="$AGE"
         Delay=$((60*$(($(($TotalDayMinutes))/$(($AGE))))))
-
+echo "generating blessings"
         #
         #Processing loop
         #
@@ -240,7 +241,8 @@ do
         if [ "$COUNT" == "0" ]; then
            COUNT=$AGE
         fi
-        #
+        echo "file proccessed"
+	#
         #create job file
         #
         echo "$BIN/bash $BINDIR/send_blessings.sh $Name $AGE $Delay $Domain $PNumber $COUNT &" >> $TMPDIR/myjobs.sh
