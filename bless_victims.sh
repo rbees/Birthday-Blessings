@@ -50,9 +50,6 @@ if [ -e "$TMPDIR/myjobs.sh" ]; then
   rm $TMPDIR/myjobs.sh
 fi
 
-echo "$STORDIR/victims"
-cat "$STORDIR/victims"
-
 #
 # Read in $STORDIR/vicitms file and process it
 #
@@ -109,7 +106,10 @@ do
           BMonth=`echo ${BMonth:1,1}`
         fi
         AGE=$(($((${TYEAR}))-$((${BYear}))))
-echo "processing carrier"
+
+	#
+        # processing carrier
+        #
         case $Carrier in
          att) 
            Domain="mms.att.net"
@@ -173,7 +173,7 @@ echo "processing carrier"
         CLocData=`echo $CData | awk -F"\" \"" '{printf("%s",$2)}'`
         CLong=`echo $CLocData | awk -F"," '{printf("%s",$7)}' | sed s/\"//g`
         CLati=`echo $CLocData | awk -F"," '{printf("%s",$8)}' | sed s/\"//g`
-echo "processing hebrew date"
+
         #
         #Calculate Hebrew Dates/times
         #
@@ -205,9 +205,9 @@ echo "processing hebrew date"
         #Number of times to send blessing, based on age
         Count="$AGE"
         Delay=$((60*$(($(($TotalDayMinutes))/$(($AGE))))))
-echo "generating blessings"
+
         #
-        #Processing loop
+        #Processing loop to generate blessings
         #
         I=0
         COUNT=0
