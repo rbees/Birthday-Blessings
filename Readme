@@ -1,8 +1,16 @@
 Hebrew Birthday Blessings Scripts.
 
-The idea for this came from the American tradition of birthday spankings.  In Jewish culture spankings are reserved for disciplinary actions, may you never need to so discipline your child with one.  Instead we bless our children every chance we get.  So I figured I would see about getting a script that would send one blessing via a text/sms message per year of age instead of one swat per year of age.
+The idea for this came from the American tradition of birthday spankings.  In Jewish culture spankings are reserved 
+for disciplinary actions, may you never need to so discipline your child with one.  Instead we bless our children 
+every chance we get.  So I figured I would see about getting a script that would send one blessing via a text/sms 
+message per year of age instead of one swat per year of age.
 
-These scripts are used to send a series of blessings to the "blessed victim".  The script takes the input of the "victims" data file as described below.  It takes the victims civil birthday and using hdate converts it to their Hebrew birthday.  Then sends one blessing for each year old they are divided up over a twenty four hour period starting at sundown.  Sundown is the start of a day on the Hebrew calendar. There can be a couple weeks difference between ones civil birthday and Hebrew birthday, ahead or behind, so allow enough lead time to get your details worked out.
+These scripts are used to send a series of blessings to the "blessed victim".  The script takes the input of the 
+"victims" data file as described below.  It takes the victims civil birthday and using hdate converts it to their 
+Hebrew birthday.  Then sends one blessing for each year old they are divided up over a twenty four hour period 
+starting at sundown.  Sundown is the start of a day on the Hebrew calendar. There can be a couple weeks difference 
+between ones civil birthday and Hebrew birthday, ahead or behind, so allow enough lead time to get your details 
+worked out.
 
 
 A special THANKS to Alanon Zander for getting this script started.
@@ -13,66 +21,78 @@ http://developer.mapquest.com/web/products/dev-services/geocoding-ws
 and place it in the MAPQUESTKEY variable below on line 40
 The free version has a 5K per day limit.  This should satisfy any non-commercial user.
 
-You will need to create a "victims" data file, which must be a comma separated list as described in bless_victims.sh.  There can be not be any empty or blank lines in the file. The "victims" file can contain a separate line for multiple victims. 
+You will need to create a "victims" data file, which must be a comma separated list as described in bless_victims.sh.  
+There can be not be any empty or blank lines in the file. The "victims" file can contain a separate line for 
+multiple victims. 
 
-Carrier List; ONLY use the part inside the "" in the victims file
+Carrier List; ONLY use the 'victim-file-entry' column inside the victims file
 
-AT&T=		"mms.att.net"
-Verizon=	"vtext.com"
-Sprint=		"messaging.sprintpcs.com"
-Alltel=		"message.alltel.com"
-Cingular=	"mobile.mycingular.com"
-Nextel=		"messaging.nextel.com"
-SunCom=		"tms.suncom.com"
-T-Mobile=	"tmomail.net"
-VoiceStream=	"voicestream.net"
-US Cellular=	"email.uscc.net"
-Cricket=	"mms.mycricket.com"
-Virgin=		"vmobl.com"
-Boostmobile or Boost=	"myboostmobile.com"
-Einsteinpcs or Einstein=	"einsteinmms.com"
+Carrier               Victim-file-entry                Email-domain
+AT&T                  att	                      "mms.att.net"
+Verizon               verizon	                      "vtext.com"
+Sprint                sprint		           "messaging.sprintpcs.com"
+Alltel                alltel		           "message.alltel.com"
+Cingular              cingular	                      "mobile.mycingular.com"
+Nextel                nextel     	           "messaging.nextel.com"
+SunCom                suncom		           "tms.suncom.com"
+T-Mobile              tmobile    	           "tmomail.net"
+VoiceStream           voicestream	           "voicestream.net"
+US Cellular           uscellular 	           "email.uscc.net"
+Cricket               cricket                          "mms.mycricket.com"
+Virgin                virgin		           "vmobl.com"
+Boostmobile           bootmobile or boost	           "myboostmobile.com"
+Einstein PCS          einsteinpcs or Einstein	"einsteinmms.com"
+All others            unknown                          ouputs "Unable to send blessings.  Unknown Cellular carrier."
 
-           Domain="unknown..."
-           echo "Unable to send blessings.  Unknown Cellular carrier."
-
-Please feel free to add your own carrier if it is not listed above to the list in bless_victims.sh following the format in the file. 
+Please feel free to add your own carrier if it is not listed above to the list in bless_victims.sh following the format 
+in the file. 
 
 File List:
 
 bless_victims.sh	main script
-Blessings.txt		blessings database
-Readme			this file
-send_blessings		script that sends the blessings
-ToDo			proposed changes
-VictimsExample		victims example file (DO Not Use, make your own)
+Blessings.txt	blessings database
+Readme		this file
+send_blessings	script that sends the blessings
+ToDo		proposed changes
+VictimsExample	victims example file (DO Not Use, make your own)
 
-Known Dependencies:  libhdate1  wget
+Known Dependencies:  libhdate1, wget, SMTP server
 
-One other dependency is the 'mail' command.  It should be on most modern linux systems, but it is, technically, an optional install.  That and a SNTP server on the system that mail can talk to. On my Debian system I use the instructions here to enable sending mail from the command line.  https://wiki.debian.org/GmailAndExim4
+One other dependency is the 'mail' command.  It should be on most modern linux systems, but it is, technically, an 
+optional install.  That and a SNTP server on the system that mail can talk to. On my Debian system I use the 
+instructions here to enable sending mail from the command line.  https://wiki.debian.org/GmailAndExim4
 
-There are some paths/data that may need to be altered to reflect your desired system settings.  They are, by approximate line #
+There are some paths/data that may need to be altered to reflect your desired system settings.  They are, by 
+approximate line #
 
 In send_blessing.sh  62, 64,
 
 In bless_victims.sh  40, 41, 42, 43
 
-As for moving the directories... 3 paths are recommended.  One for the permanent scripts, one for the data file and one for the temporary data.  Some might want to install the scripts in /usr/bin for all to use, then use "~/BDay" for STORDIR and Temp files might be put in that user's "~/tmp" or in "/tmp/$USER/"  so that is why I have them split up that way.  Many users will do as you suggest and set all 3 the same.  That is why I set up the 3 variables right next to each other.  Easy to change.  The default has all 3 set to to "$HOME/BDay".
+As for moving the directories... 3 paths are recommended.  One for the permanent scripts, one for the data file 
+and one for the temporary data.  Some might want to install the scripts in /usr/bin for all to use, 
+then use "~/BDay" for STORDIR and Temp files might be put in that user's "~/tmp" or in "/tmp/$USER/"  is why I have
+them split up that way.  Many set all 3 the same.  Easy to change.  The default has all 3 set to to "$HOME/BDay".
 
 
 
 To use: 
 
-Copy these files to some location in your home directory, say $HOME/BDay  Don't forget to adjust the paths described above if needed for your system.
+Copy these files to some location in your home directory, say $HOME/BDay  Don't forget to adjust the paths described
+above if needed for your system.
 
 Make bless-victims.sh and send_blessing.sh executable
 
 Create the victims data file as described above
 
-Look through the Blessings.txt file adding and/or removing blessings that should be there specific to the victim, you wouldn't want to send provocative blessings to your mother now would you.  Each blessing needs to be at a new line with a line number followed by a double pipe symbol as in 3||Blessed .....
+Look through the Blessings.txt file adding and/or removing blessings that should be there specific to the victim, 
+you wouldn't want to send provocative blessings to your mother now would you.  Each blessing needs to be at a new 
+line with a line number followed by a double pipe symbol as in 3||Blessed .....
 
 Run bless_victims.sh
 
-Run the generated file myjobs.sh just prior to sundown to send the text-blessings to your chosen victim on their Hebrew birthday.
+Run the generated file myjobs.sh just prior to sundown to send the text-blessings to your chosen victim on their 
+Hebrew birthday.
 
 
 
