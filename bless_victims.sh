@@ -217,7 +217,7 @@ do
                 #
                 #Get Blessing from Blessings file
                 #
-                BlText=`grep -e "^$I|" $STORDIR/Blessings`
+                BlText=`grep -e "^$I|" $STORDIR/Blessings.txt`
                 if [ "$BlText" == "" ]; then
                   BlText="999||You have lived so long that you have already received every blessing humanly possible.  It is time to share that blessing and your wisdom with the world."
                   COUNT=$I
