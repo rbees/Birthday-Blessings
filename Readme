@@ -56,7 +56,7 @@ send_blessings	script that sends the blessings
 ToDo		proposed changes
 VictimsExample	victims example file (DO Not Use, make your own)
 
-Known Dependencies:  libhdate1, wget, SMTP server
+Known Dependencies:  libhdate1, wget, mailutils, SMTP server
 
 One other dependency is the 'mail' command.  It should be on most modern linux systems, but it is, technically, an 
 optional install.  That and a SNTP server on the system that mail can talk to. On my Debian system I use the 
