@@ -107,7 +107,11 @@ do
         fi
         AGE=$(($((${TYEAR}))-$((${BYear}))))
 
+<<<<<<< HEAD
         #
+=======
+	#
+>>>>>>> c54693a518d1a600268cbe3c53cb32d662b40244
         # processing carrier
         #
         case $Carrier in
@@ -208,6 +212,8 @@ do
 
         #Processing loop
         #
+        #Processing loop to generate blessings
+        #
         I=0
         COUNT=0
         while [ $I -lt $Count ]; do
@@ -216,6 +222,7 @@ do
                 #
                 #Get Blessing from Blessings file
                 #
+                
                 BlText=`grep -e "^$I|" ${STORDIR}/Blessings.txt`
                 if [ "$BlText" == "" ]; then
                   BlText="999||You have lived so long that you have already received every blessing humanly possible.  It is time to share that blessing and your wisdom with the world."
