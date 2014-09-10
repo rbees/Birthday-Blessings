@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #Geolocation to calculate sunup/sundown
-# BigData= `wget "http://www.mapquestapi.com/geocoding/v1/address?key=$MAPQUEST_API_KEY_HERE&outFormat=csv&city=Kalkaska&state=MI" -O -`
+# BigData= `wget "http://www.mapquestapi.com/geocoding/v1/address?key=$MAPQUEST_API_KEY&outFormat=csv&city=Kalkaska&state=MI" -O -`
 #
 #returns:
 #
@@ -12,16 +12,16 @@
 
 #Data files:
 # Victims file format:
-#   Name,Current City,Current State,birthdate(YYYYMMDD),birthtime(HHmmss),M/F,relation,cellcarrier,text-number,salutation,Long,Lat,height,weight,BirthTimezone,BirthCity,BirthState,CurrentTimezone
+#   Name,CurrentCity,CurrentState,birthdate(YYYYMMDD),birthtime(HHmmss),M/F,relation,cellcarrier,text-number,salutation,Long,Lat,height,weight,BirthTimezone,BirthCity,BirthState,CurrentTimezone
 #
 # Examples:
-#   John,Houston,TX,19780127,040500,M,other,att,1235550000,Mr,99.9999,99.9999,tall,slender,-6,Laramie,WY,-7
-#   Jane,Cadillac,MI,19870507.013000,F,wife,att,1235550001,Ms,99.9999,99.9999,short,plump,-5,Salt Lake City,UT,-7
-#   George,Gaylord,MI,20000828,010000,M,other,verizon,2315550410,Mr,99.9999,99.9999,average,gangly,-5,Gaylord,MI,-5
+#   John,Detroit,MI,19780127,040500,M,other,att,6165550101,Mr,99.9999,99.9999,tall,slender,-5,Laramie,WY,-7
+#   Jane,Cadillac,MI,19780507.013000,F,spouse,att,2315550001,Mrs,99.9999,99.9999,short,plump,-5,Salt Lake City,UT,-7
+#   Frederick,Gaylord,MI,20000828,010000,M,other,verizon,2315555410,Mr,,,,,-5,Gaylord,MI,-5
 #
 
 # You need to get your own mapquest key from
-# http://developer.mapquest.com/web/products/dev-services/geocoding-ws 
+# http://developer.mapquest.com/web/products/dev-services/geocoding-ws
 # and place it in the MAPQUESTKEY variable below on line 40
 
 #
@@ -34,29 +34,26 @@ STZONE=`date +%:::z`
 #if your system is using UTC and you aren't in UTC's timezone, then you should specify your timzone below, after uncommenting the line out.
 #STZONE="-05"
 
-TODAY="$TDAY $TMONTH $TYEAR $TZONE"
+TODAY="${TDAY} ${TMONTH} ${TYEAR} ${TZONE}"
 TotalDayMinutes=1440
 
-MAPQUESTKEY="YOUR-MAPQUEST-API-KEY-HERE"
-STORDIR="$HOME/BDay"
-BINDIR="$HOME/BDay"
-TMPDIR="$HOME/BDay"
+MAPQUESTKEY="Put your mapquest key here"
+STORDIR="${HOME}/BDay"
+BINDIR="${HOME}/BDay"
+TMPDIR="${HOME}/BDay"
 BIN="/bin"
 
 #
 #Cleanup any outstanding(old) jobs
 #
-if [ -e "$TMPDIR/myjobs.sh" ]; then
-  rm $TMPDIR/myjobs.sh
+if [ -e "${TMPDIR}/myjobs.sh" ]; then
+  rm ${TMPDIR}/myjobs.sh
 fi
-
-echo "$STORDIR/victims"
-cat "$STORDIR/victims"
 
 #
 # Read in $STORDIR/vicitms file and process it
 #
-cat $STORDIR/victims | while read VICTIM
+cat ${STORDIR}/victims | while read VICTIM
 do
         #
         # if an empty line is found, terminate reading victims file
@@ -67,14 +64,14 @@ do
         #
         #split victims entry into it's parts
         #
-        Name=`echo $VICTIM | awk -F"," '{printf("%s",$1)}'`
+        Name=`echo ${VICTIM} | awk -F"," '{printf("%s",$1)}'`
         echo "- ${Name}"
-        City=`echo $VICTIM | awk -F"," '{printf("%s",$2)}'`
-        State=`echo $VICTIM | awk -F"," '{printf("%s",$3)}'`
-        BDate=`echo $VICTIM | awk -F"," '{printf("%s",$4)}'`
-        BTime=`echo $VICTIM | awk -F"," '{printf("%s",$5)}'`
-        Sex=`echo $VICTIM | awk -F"," '{printf("%s",$6)}'`
-        case $Sex in
+        City=`echo ${VICTIM} | awk -F"," '{printf("%s",$2)}'`
+        State=`echo ${VICTIM} | awk -F"," '{printf("%s",$3)}'`
+        BDate=`echo ${VICTIM} | awk -F"," '{printf("%s",$4)}'`
+        BTime=`echo ${VICTIM} | awk -F"," '{printf("%s",$5)}'`
+        Sex=`echo ${VICTIM} | awk -F"," '{printf("%s",$6)}'`
+        case ${Sex} in
          M|m) 
           Sex="man"
           ;;
@@ -109,7 +106,10 @@ do
           BMonth=`echo ${BMonth:1,1}`
         fi
         AGE=$(($((${TYEAR}))-$((${BYear}))))
-echo "processing carrier"
+
+        #
+        # processing carrier
+        #
         case $Carrier in
          att) 
            Domain="mms.att.net"
@@ -173,7 +173,7 @@ echo "processing carrier"
         CLocData=`echo $CData | awk -F"\" \"" '{printf("%s",$2)}'`
         CLong=`echo $CLocData | awk -F"," '{printf("%s",$7)}' | sed s/\"//g`
         CLati=`echo $CLocData | awk -F"," '{printf("%s",$8)}' | sed s/\"//g`
-echo "processing hebrew date"
+
         #
         #Calculate Hebrew Dates/times
         #
@@ -188,16 +188,16 @@ echo "processing hebrew date"
         if [ "${BTHour}" == "${BHSHour}" ]; then
            if [ ${BHSMin} < ${BTMin}  ];then
               BDay=$(($(($BDay))+1))
-              BHDate=`hdate -qTs -l $BLong -L $BLati -z $BTZone $BDay $BMonth $BYear`
+              BHDate=`hdate -qTs -l ${BLong} -L ${BLati} -z ${BTZone} ${BDay} ${BMonth} ${BYear}`
            fi
         else
            if [ $((${BHSHour})) -le $((${BTHour})) ]; then
               BDay=$(($(($BDay))+1))
-              BHDate=`hdate -iqTts -l $BLong -L $BLati -z $BTZone ${BDay} $BMonth $BYear`
+              BHDate=`hdate -iqTts -l ${BLong} -L ${BLati} -z ${BTZone} ${BDay} ${BMonth} ${BYear}`
            fi
         fi
 
-        CHDate=`hdate -qTts -l $CLong -L $CLati -z $TZone`
+        CHDate=`hdate -qTts -l ${CLong} -L ${CLati} -z ${TZone}`
         CHDSunset=`echo ${CHDate} | awk -F"," '{printf("%s",$16)}'`
         CHDSHour="${CHDSunset:0:2}"
         CHDSMin="${CHDSunset:3:2}"
@@ -205,8 +205,7 @@ echo "processing hebrew date"
         #Number of times to send blessing, based on age
         Count="$AGE"
         Delay=$((60*$(($(($TotalDayMinutes))/$(($AGE))))))
-echo "generating blessings"
-        #
+
         #Processing loop
         #
         I=0
@@ -217,7 +216,7 @@ echo "generating blessings"
                 #
                 #Get Blessing from Blessings file
                 #
-                BlText=`grep -e "^$I|" $STORDIR/Blessings`
+                BlText=`grep -e "^$I|" ${STORDIR}/Blessings.txt`
                 if [ "$BlText" == "" ]; then
                   BlText="999||You have lived so long that you have already received every blessing humanly possible.  It is time to share that blessing and your wisdom with the world."
                   COUNT=$I
@@ -236,13 +235,12 @@ echo "generating blessings"
                 #
                 #Store blessing to be sent in temporary file
                 #
-                echo "$Blessing" > $TMPDIR/$Name.blessing.$I.txt
+                echo "${Blessing}" > $TMPDIR/$Name.blessing.$I.txt
         done
         if [ "$COUNT" == "0" ]; then
            COUNT=$AGE
         fi
-        echo "file proccessed"
-	#
+        #
         #create job file
         #
         echo "$BIN/bash $BINDIR/send_blessings.sh $Name $AGE $Delay $Domain $PNumber $COUNT &" >> $TMPDIR/myjobs.sh
