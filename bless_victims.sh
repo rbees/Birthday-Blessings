@@ -82,22 +82,22 @@ do
           Sex="living being"
           ;;
         esac
-        Relation=`echo $VICTIM | awk -F"," '{printf("%s",$7)}'`
-        Carrier=`echo $VICTIM | awk -F"," '{printf("%s",$8)}'`
-        PNumber=`echo $VICTIM | awk -F"," '{printf("%s",$9)}'`
-        Salutation=`echo $VICTIM | awk -F"," '{printf("%s",$10)}'`
-        Long=`echo $VICTIM | awk -F"," '{printf("%s",$11)}'`
-        Lat=`echo $VICTIM | awk -F"," '{printf("%s",$12)}'`
-        Height=`echo $VICTIM |awk -F"," '{printf("%s",$13)}'`
-        Weight=`echo $VICTIM |awk -F"," '{printf("%s",$14)}'`
-        TZone=`echo $VICTIM |awk -F"," '{printf("%s",$15)}'`
-        BCity=`echo $VICTIM |awk -F"," '{printf("%s",$16)}'`
-        BState=`echo $VICTIM |awk -F"," '{printf("%s",$17)}'`
-        BTZone=`echo $VICTIM |awk -F"," '{printf("%s",$18)}'`
-        if [ "$BCity" == "" ]; then
-          BCity="$City"
-          BState="$State"
-          BTZone="$TZone"
+        Relation=`echo ${VICTIM} | awk -F"," '{printf("%s",$7)}'`
+        Carrier=`echo ${VICTIM} | awk -F"," '{printf("%s",$8)}'`
+        PNumber=`echo ${VICTIM} | awk -F"," '{printf("%s",$9)}'`
+        Salutation=`echo ${VICTIM} | awk -F"," '{printf("%s",$10)}'`
+        Long=`echo ${VICTIM} | awk -F"," '{printf("%s",$11)}'`
+        Lat=`echo ${VICTIM} | awk -F"," '{printf("%s",$12)}'`
+        Height=`echo ${VICTIM} |awk -F"," '{printf("%s",$13)}'`
+        Weight=`echo ${VICTIM} |awk -F"," '{printf("%s",$14)}'`
+        TZone=`echo ${VICTIM} |awk -F"," '{printf("%s",$15)}'`
+        BCity=`echo ${VICTIM} |awk -F"," '{printf("%s",$16)}'`
+        BState=`echo ${VICTIM} |awk -F"," '{printf("%s",$17)}'`
+        BTZone=`echo ${VICTIM} |awk -F"," '{printf("%s",$18)}'`
+        if [ "${BCity}" == "" ]; then
+          BCity="${City}"
+          BState="${State}"
+          BTZone="${TZone}"
         fi
         BYear=`echo ${BDate:0:4}`
         BMonth=`echo ${BDate:4:2}`
@@ -109,7 +109,7 @@ do
 
         # processing carrier
         #
-        case $Carrier in
+        case ${Carrier} in
          att) 
            Domain="mms.att.net"
            ;;
@@ -162,23 +162,23 @@ do
         #
         #get location data for Birth location and Current location
         #
-        BData=`wget -q "http://www.mapquestapi.com/geocoding/v1/address?key=${MAPQUESTKEY}&outFormat=csv&city=$BCity&state=$BState" -O -`
-        CData=`wget -q "http://www.mapquestapi.com/geocoding/v1/address?key=${MAPQUESTKEY}&outFormat=csv&city=$City&state=$State" -O -`
+        BData=`wget -q "http://www.mapquestapi.com/geocoding/v1/address?key=${MAPQUESTKEY}&outFormat=csv&city=${BCity}&state=${BState}" -O -`
+        CData=`wget -q "http://www.mapquestapi.com/geocoding/v1/address?key=${MAPQUESTKEY}&outFormat=csv&city=${City}&state=${State}" -O -`
 
-        BLocData=`echo $BData | awk -F"\" \"" '{printf("%s",$2)}'`
-        BLong=`echo $BLocData | awk -F"," '{printf("%s",$7)}' | sed s/\"//g`
-        BLati=`echo $BLocData | awk -F"," '{printf("%s",$8)}' | sed s/\"//g`
+        BLocData=`echo ${BData} | awk -F"\" \"" '{printf("%s",$2)}'`
+        BLong=`echo ${BLocData} | awk -F"," '{printf("%s",$7)}' | sed s/\"//g`
+        BLati=`echo ${BLocData} | awk -F"," '{printf("%s",$8)}' | sed s/\"//g`
 
-        CLocData=`echo $CData | awk -F"\" \"" '{printf("%s",$2)}'`
-        CLong=`echo $CLocData | awk -F"," '{printf("%s",$7)}' | sed s/\"//g`
-        CLati=`echo $CLocData | awk -F"," '{printf("%s",$8)}' | sed s/\"//g`
+        CLocData=`echo ${CData} | awk -F"\" \"" '{printf("%s",$2)}'`
+        CLong=`echo ${CLocData} | awk -F"," '{printf("%s",$7)}' | sed s/\"//g`
+        CLati=`echo ${CLocData} | awk -F"," '{printf("%s",$8)}' | sed s/\"//g`
 
         #
         #Calculate Hebrew Dates/times
         #
-        BHDate=`hdate -qTts -l $BLong -L $BLati -z $BTZone $BDay $BMonth $BYear`
+        BHDate=`hdate -qTts -l ${BLong} -L ${BLati} -z ${BTZone} ${BDay} ${BMonth} ${BYear}`
 
-        BHSunset=`echo $BHDATE | awk -F"," '{printf("%s",$7)}'`
+        BHSunset=`echo ${BHDate} | awk -F"," '{printf("%s",$7)}'`
         BHSHour="${BHSunset:0:2}"
         BHSMin="${BHSunset:2:2}"
         BTHour="${BTime:0:2}"
@@ -202,7 +202,7 @@ do
         CHDSMin="${CHDSunset:3:2}"
 
         #Number of times to send blessing, based on age
-        Count="$AGE"
+        Count="${AGE}"
         Delay=$((60*$(($(($TotalDayMinutes))/$(($AGE))))))
 
         #Processing loop
@@ -211,17 +211,17 @@ do
         #
         I=0
         COUNT=0
-        while [ $I -lt $Count ]; do
+        while [ ${I} -lt ${Count} ]; do
                 #for now, assumes all blessings are generic.  No M/F, Age, or relational component branches
                 I=$(($I+1))
                 #
                 #Get Blessing from Blessings file
                 #
                 
-                BlText=`grep -e "^$I|" ${STORDIR}/Blessings.txt`
-                if [ "$BlText" == "" ]; then
+                BlText=`egrep -e "^${I}|" ${STORDIR}/Blessings.txt`
+                if [ "${BlText}" == "" ]; then
                   BlText="999||You have lived so long that you have already received every blessing humanly possible.  It is time to share that blessing and your wisdom with the world."
-                  COUNT=$I
+                  COUNT=${I}
                   I=999
                 fi
                 #
@@ -239,16 +239,16 @@ do
                 #
                 echo "${Blessing}" > $TMPDIR/$Name.blessing.$I.txt
         done
-        if [ "$COUNT" == "0" ]; then
-           COUNT=$AGE
+        if [ "${COUNT}" == "0" ]; then
+           COUNT=${AGE}
         fi
         #
         #create job file
         #
-        echo "$BIN/bash $BINDIR/send_blessings.sh $Name $AGE $Delay $Domain $PNumber $COUNT &" >> $TMPDIR/myjobs.sh
+        echo "${BIN}/bash ${BINDIR}/send_blessings.sh ${Name} ${AGE} ${Delay} ${Domain} ${PNumber} ${COUNT} &" >> ${TMPDIR}/myjobs.sh
 done
 
 echo ""
-echo "Processing done.  Run $TMPDIR/myjobs.sh at sundown to send them."
+echo "Processing done.  Run ${TMPDIR}/myjobs.sh at sundown to send them."
 echo ""
 exit 0
