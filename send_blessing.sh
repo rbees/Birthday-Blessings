@@ -1,76 +1,40 @@
 #!/bin/bash
-#
-# Send blessings subroutine
-#
-# send_blessings.sh $Name $AGE $DELAY $Carrier $PhoneNumber $COUNT
-#
 
-#
+# Send blessings subroutine
+# send_blessings.sh $NAME $AGE $DELAY $CARRIER $PHONE_NUMBER $COUNT
+
 # Handle insufficient paramters
-#
 SyntaxError() {
-  echo ""
-  echo "ERROR, insufficient parameters given."
-  echo ""
-  echo "Syntax: send_blessings.sh <Name> <age> <time between messages> <domain of carrier address> <Cellphone number> <Number of messages to send>"
-  echo ""
-  exit
+    printf "ERROR, insufficient parameters given.\n\n"
+    printf "Syntax: send_blessings.sh <Name> <age> <time between messages> <domain of carrier address> <Cellphone number> <Number of messages to send>"
+    exit 0
 }
 
 
-#
-#get paramters
-#
-if [ -z "$1" ]; then
-  SyntaxError
-else
-  Name="$1"
-fi
-if [ -z "$2" ]; then
-  SyntaxError
-else
-  AGE="$2"
-fi
-if [ -z "$3" ]; then
-  SyntaxError
-else
-  DELAY="$3"
-fi
-if [ -z "$4" ]; then
-  SyntaxError
-else
-  Domain="$4"
-fi
-if [ -z "$5" ]; then
-  SyntaxError
-else
-  PNumber="$5"
-fi
-if [ -z "$6" ]; then
-  SyntaxError
-else
-  #
-  # COUNT should = AGE, if not it means we ran out of blessings.
-  #
-  COUNT="$6"
+# Get Parameters
+if [[ "$#" -ne 6 ]]
+then
+    SyntaxError
 fi
 
+NAME=$1
+AGE=$2
+DELAY=$3
+DOMAIN=$4
+PHONE_NUMBER=$5
+COUNT=$6 # COUNT should be equal to AGE. If not, we ran out of blessings.
 
-#
-#Local Variables
-#
+# Local Variables
 FROM="Crazy Jew"
-I=1
 TMPDIR="$HOME/BDay"
 
-#
-#Loop to send emails to email->text gateways
-#
-while [ $I -le $COUNT ]; do
-        mail -r "${FROM}" -s "Birthday Blessings for ${Name}" $PNumber@$Domain < $TMPDIR/$Name.blessing.$I.txt 
-        sleep $DELAY
-        rm $TMPDIR/$Name.blessing.$I.txt
-        I=$(($I+1))
+# Loop to send emails to email->text gateways
+i=0
+while [ $i -lt $COUNT ]; do
+    mail -r "${FROM}" -s "Birthday Blessings for ${NAME}" $PHONE_NUMBER@$DOMAIN < $TMPDIR/$NAME.blessing.$i.txt 
+    sleep $DELAY
+    rm $TMPDIR/$NAME.blessing.$i.txt
+    i=$[$i+1]
 done
 
 exit 0
