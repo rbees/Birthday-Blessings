@@ -107,11 +107,6 @@ do
         fi
         AGE=$(($((${TYEAR}))-$((${BYear}))))
 
-<<<<<<< HEAD
-        #
-=======
-	#
->>>>>>> c54693a518d1a600268cbe3c53cb32d662b40244
         # processing carrier
         #
         case $Carrier in
