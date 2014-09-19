@@ -82,18 +82,18 @@ do
           Sex="living being"
           ;;
         esac
-        Relation=`echo $VICTIM | awk -F"," '{printf("%s",$7)}'`
-        Carrier=`echo $VICTIM | awk -F"," '{printf("%s",$8)}'`
-        PNumber=`echo $VICTIM | awk -F"," '{printf("%s",$9)}'`
-        Salutation=`echo $VICTIM | awk -F"," '{printf("%s",$10)}'`
-        Long=`echo $VICTIM | awk -F"," '{printf("%s",$11)}'`
-        Lat=`echo $VICTIM | awk -F"," '{printf("%s",$12)}'`
-        Height=`echo $VICTIM |awk -F"," '{printf("%s",$13)}'`
-        Weight=`echo $VICTIM |awk -F"," '{printf("%s",$14)}'`
-        TZone=`echo $VICTIM |awk -F"," '{printf("%s",$15)}'`
-        BCity=`echo $VICTIM |awk -F"," '{printf("%s",$16)}'`
-        BState=`echo $VICTIM |awk -F"," '{printf("%s",$17)}'`
-        BTZone=`echo $VICTIM |awk -F"," '{printf("%s",$18)}'`
+        Relation=`echo ${VICTIM} | awk -F"," '{printf("%s",$7)}'`
+        Carrier=`echo ${VICTIM} | awk -F"," '{printf("%s",$8)}'`
+        PNumber=`echo ${VICTIM} | awk -F"," '{printf("%s",$9)}'`
+        Salutation=`echo ${VICTIM} | awk -F"," '{printf("%s",$10)}'`
+        Long=`echo ${VICTIM} | awk -F"," '{printf("%s",$11)}'`
+        Lat=`echo ${VICTIM} | awk -F"," '{printf("%s",$12)}'`
+        Height=`echo ${VICTIM} |awk -F"," '{printf("%s",$13)}'`
+        Weight=`echo ${VICTIM} |awk -F"," '{printf("%s",$14)}'`
+        TZone=`echo ${VICTIM} |awk -F"," '{printf("%s",$15)}'`
+        BCity=`echo ${VICTIM} |awk -F"," '{printf("%s",$16)}'`
+        BState=`echo ${VICTIM} |awk -F"," '{printf("%s",$17)}'`
+        BTZone=`echo ${VICTIM} |awk -F"," '{printf("%s",$18)}'`
         if [ "${BCity}" == "" ]; then
           BCity="${City}"
           BState="${State}"
@@ -210,7 +210,7 @@ do
         #
         I=0
         COUNT=0
-        while [ $I -lt $Count ]; do
+        while [ ${I} -lt ${Count} ]; do
                 #for now, assumes all blessings are generic.  No M/F, Age, or relational component branches
                 I=$(($I+1))
                 #
