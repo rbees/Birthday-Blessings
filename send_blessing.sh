@@ -31,7 +31,7 @@ TMPDIR="$HOME/BDay"
 # Loop to send emails to email->text gateways
 i=0
 while [ $i -lt $COUNT ]; do
-    mail -r "${FROM}" -s "Birthday Blessings for ${NAME}" $PHONE_NUMBER@$DOMAIN < $TMPDIR/$NAME.blessing.$i.txt 
+    mail -s "${NAME}'n Birthday Blessing from ${FROM}" $PHONE_NUMBER@$DOMAIN < $TMPDIR/$NAME.blessing.$i.txt 
     sleep $DELAY
     rm $TMPDIR/$NAME.blessing.$i.txt
     i=$[$i+1]

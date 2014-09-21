@@ -245,7 +245,7 @@ do
         #
         #create job file
         #
-        echo "${BIN}/bash ${BINDIR}/send_blessings.sh ${Name} ${AGE} ${Delay} ${Domain} ${PNumber} ${COUNT} &" >> ${TMPDIR}/myjobs.sh
+        echo "${BIN}/bash ${BINDIR}/send_blessing.sh ${Name} ${AGE} ${Delay} ${Domain} ${PNumber} ${COUNT} &" >> ${TMPDIR}/myjobs.sh
 done
 
 echo ""
