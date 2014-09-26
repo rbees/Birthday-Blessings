@@ -4,7 +4,7 @@
 # Name,Current City,Current.State,birthdate(YYYYMMDD),birthtime(HHmmss),M/F,relation,cellcarrier,text-number,salutation,Long,Lat,height,weight,BirthTimezone,BirthCity,BirthState,CurrentTimezone
 #
 
-MAPQUESTKEY="Fmjtd%7Cluur250rn0%2Ca5%3Do5-9w2nu0"
+MAPQUESTKEY="Put Your Mapquest Key Here"
 STORDIR="${HOME}/BDay/Dev"
 #BINDIR="${HOME}/BDay"
 TMPDIR="${HOME}/BDay/Dev"
@@ -128,10 +128,11 @@ select carrier in \
         15 ) CCARRIER='einsteinpcs|einstein' ;;
         16 ) CCARRIER='einsteinpcs|einstein' ;;
         17 ) CCARRIER='unknown' ;;
-        * ) print 'invalid.' ;;
+        * ) echo 'invalid choice.' ;;
     esac
-    if [[ -n $carrier ]]; then
-#         echo "CCARRIER is $CCARRIER"
+    if [[ $REPLY == '17' ]]; then
+        echo " This script can't use a carrier it does not know. Sorry. "
+        echo " Hack the scripts to add one. "
         break
     fi
     done
