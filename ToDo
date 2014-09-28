@@ -1,5 +1,13 @@
 To Do:
 
+Send a preliminary text so that the victim can "Opt-In" to receiving the blessings.
+
+Fix the script to schedule sending automatically.
+
+Separate the salutation part of the blessing off from the blessing and bring it back 
+in as a variable.  Then the salutation, currently "Blessed are You HaShem my G0d, 
+King of the Universe" can be altered more easily by the user.
+
 Expand Blessing database to 120 generic blessings.
 
 Build Blessing directory structure to something like
@@ -10,7 +18,7 @@ Build Blessing directory structure to something like
                             BirthOfChildren
 
                    Wife- Generic
-                         Provacitive
+                         Provocative
                          BirthOfChildren
 
            Generic - Broken down by 10 year age divisions.
@@ -29,16 +37,18 @@ Blessings-
 
 Separate the blessings into individual files in the appropriate directory structure.
 
-Modify the script to use the directory structure and pull blessings that are more specific to the victim.
+Modify the script to use the directory structure and pull blessings that are more 
+specific to the victim.
 
-Modify the script to use ncurses or other to build the victims data file.
+Modify the script to allow the user to incorporate their own specific blessings into the mix.
 
-Enable 'Forward, Reverse, and Random' order of blessings. Currently controlled by the preceding number in the blessing line.
+Modify the script to use ncurses or some other more user friendly interface to build 
+the victims data file instead of the current victim_gen.sh.
 
-Separate the salutation part of the blessing off from the blessing and bring it back in as a variable.  Then the salutation, currently "Blessed are You HaShem my G0d, King of the Universe" can be altered more easily by the user.
-
-Fix the script to schedule sending automatically.
+Enable 'Forward, Reverse, and Random' order of blessings. Currently controlled by 
+the preceding number in the blessing line.
 
 Interface to manage 'active victims file from larger database of people.
 
-Considering a config.inc file for configuration, but that gets complex and requires even more changes to the file if they decide to change paths from what we predefine.
+Considering a config.inc file for configuration, but that gets complex and requires 
+even more changes to the file if they decide to change paths from what we predefine.
