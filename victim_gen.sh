@@ -5,9 +5,8 @@
 #
 
 MAPQUESTKEY="Put Your Mapquest Key Here"
-STORDIR="${HOME}/BDay/Dev"
-#BINDIR="${HOME}/BDay"
-TMPDIR="${HOME}/BDay/Dev"
+STORDIR="${HOME}/BDay"
+TMPDIR="${HOME}/BDay"
 BIN="/bin"
 
 #
@@ -19,6 +18,7 @@ fi
 
 # Name
 echo -n "Enter the victim's name > "
+echo -n "First name or Nick name.  No spaces please"
 read NAME
 echo "You entered: $NAME"
 
@@ -40,6 +40,7 @@ echo "You entered: $CSTATE"
 
 # Current time zone
 echo -n "What timezone does the victim live in? > "
+echo -n "These scripts DO NOT adjust for daylight savings time"
 read CTZONE
 echo "You entered: $CTZONE"
 
@@ -49,29 +50,36 @@ read BDATE
 echo "You entered: $BDATE"
 
 # Time of birth
-echo -n "Enter the victim's time of birth. (HHmmSS)  If not known leave blank. > "
+echo -n "Enter the victim's time of birth. (HHmmSS)  If not known leave blank and sundown will be used. > "
+echo -n "These scripts DO NOT adjust for daylight savings time so if the birth time is close to sundown"
+echo -n "you will need to adjust this accordingly."
 read BTIME
 echo "You entered: $BTIME"
 
 # Birth Time Zone
 echo -n "What timezone was the victim born in? > "
+echo -n "These scripts DO NOT adjust for daylight savings time so if the birth time is close to sundown"
+echo -n "you may need to adjust this accordingly."
 read BTZONE
 echo "You entered: $BTZONE"
 
 # Address where victim was born
 # Used to establish sundown when the victim was born
 echo -n "Street address where the victim was born. > "
+echo -n "If not known leave blank"
 read BSADD
 echo "You entered: $BSADD"
 
 # Birth City
 echo -n "What city/town was the victim born in? > "
+echo -n "If not known leave blank and their current address will be used"
 read BCITY
 echo "You entered: $BCITY"
 
 # Birth State
 echo -n "What State was the victim born in? > "
 read BSTATE
+echo -n "If not known leave blank and their current address will be used"
 echo "You entered: $BSTATE"
 
 # Gender
@@ -132,19 +140,21 @@ select carrier in \
     esac
     if [[ $REPLY == '17' ]]; then
         echo " This script can't use a carrier it does not know. Sorry. "
-        echo " Hack the scripts to add one. "
+        echo " You will have to Hack the scripts to add one. "
         break
     fi
     done
 
 
 # Cell Number
-echo -n "And the victim's phone number.  Note that T-Mobile sometimes requires the long-distance prefix 1 > "
+echo -n "And the victim's phone number. 0001112222 no spaces please"  
+echo -n "Note that T-Mobile sometimes requires the long-distance prefix 1 > "
 read VNUMBER
 echo "You entered: $VNUMBER"
 
 # Salutation
 echo -n "How would you like the blessing to start? (Default: Blessed is HaShem our G0D the King of the Universe who > "
+echo -n "Currently this has no effect on the blessings.  I will no object to someone fixing that issue. ;)"
 read SALU
 echo "You entered: $SALU"
 
@@ -186,5 +196,8 @@ BLocData=`echo ${GEOLOCAL} | awk -F"\" \"" '{printf("%s",$2)}'`
 
 # Generate victims file
 echo "${NAME},${CCITY},${CSTATE},${BDATE},${BTIME},${GENDER},${RELATIONSHIP},${CCARRIER},${VNUMBER},${SALU},${CLNG},${CLAT},${VHIGHT},${VSIZE},${BTZONE},${BCITY},${BSTATE},${CTZONE}" >> ${STORDIR}/victims
+
+echo -n "The victims file has been generated."
+echo -n "Run bless_victims.sh to generate the series of blessing to send to the victim."
 
 exit 0
