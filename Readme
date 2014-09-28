@@ -12,55 +12,69 @@ starting at sundown.  Sundown is the start of a day on the Hebrew calendar. Ther
 between ones civil birthday and Hebrew birthday, ahead or behind, so allow enough lead time to get your details 
 worked out.
 
+Pleas DO NOT abuse the power of these scripts to "crapflood" someone's device.  That is not kind.
+Showing someone how much you care for their well being is the intent of these scripts.  If you know someone will be offended by receiving these blessings don't send them to them.
+
+NOTE: Some people do NOT have unlimited texting on their devices.  So don't burn up their service with this.
+That would not show kindness either.
+
 
 A special THANKS to Alanon Zander for getting this script started.
 
 
 First You need to get your own mapquest key from
 http://developer.mapquest.com/web/products/dev-services/geocoding-ws 
-and place it in the MAPQUESTKEY variable below on line 40
+and place it in the MAPQUESTKEY variable below on line 40 in bless_victims.sh and line 7 in victim_gen.sh
 The free version has a 5K per day limit.  This should satisfy any non-commercial user.
 
-You will need to create a "victims" data file, which must be a comma separated list as described in bless_victims.sh.  
-There can be not be any empty or blank lines in the file. The "victims" file can contain a separate line for 
-multiple victims. 
+The following has been superseded by the script vitcim_gen.sh which will generate the victims file for you.
+Run it and answer the questions.  Done ( Currently it just delets an existing victims file before creating
+the new one. )
+
+You will need to create by hand a "victims" data file, which must be a comma separated list as described in bless_victims.sh.  There can be not be any empty or blank lines in the file. The "victims" file can contain 
+a separate line for multiple victims. 
 
 Carrier List; ONLY use the 'victim-file-entry' column inside the victims file
 
-Carrier               Victim-file-entry                Email-domain
-AT&T                  att	                      "mms.att.net"
-Verizon               verizon	                      "vtext.com"
+Carrier               Victim-file-entry             Email-domain
+AT&T                  att	                   "mms.att.net"
+Verizon               verizon	                   "vtext.com"
 Sprint                sprint		           "messaging.sprintpcs.com"
 Alltel                alltel		           "message.alltel.com"
-Cingular              cingular	                      "mobile.mycingular.com"
+Cingular              cingular	                   "mobile.mycingular.com"
 Nextel                nextel     	           "messaging.nextel.com"
 SunCom                suncom		           "tms.suncom.com"
 T-Mobile              tmobile    	           "tmomail.net"
 VoiceStream           voicestream	           "voicestream.net"
 US Cellular           uscellular 	           "email.uscc.net"
-Cricket               cricket                          "mms.mycricket.com"
+Cricket               cricket                      "mms.mycricket.com"
 Virgin                virgin		           "vmobl.com"
-Boostmobile           bootmobile or boost	           "myboostmobile.com"
-Einstein PCS          einsteinpcs or Einstein	"einsteinmms.com"
-All others            unknown                          ouputs "Unable to send blessings.  Unknown Cellular carrier."
+Boostmobile           bootmobile or boost	   "myboostmobile.com"
+Einstein PCS          einsteinpcs or Einstein	   "einsteinmms.com"
+All others            unknown             ouputs   "Unable to send blessings.  Unknown Cellular carrier."
 
-Please feel free to add your own carrier if it is not listed above to the list in bless_victims.sh following the format 
-in the file. 
+Please feel free to add your own carrier if it is not listed above to the list in bless_victims.sh following 
+the format in the file. 
+
 
 File List:
 
 bless_victims.sh	main script
-Blessings.txt	blessings database
-Readme		this file
-send_blessings	script that sends the blessings
-ToDo		proposed changes
-VictimsExample	victims example file (DO Not Use, make your own)
+Blessings.txt		blessings database
+Readme			this file
+send_blessing.sh	script that sends the blessings
+ToDo			proposed changes
+VictimsExample		victims example file (DO Not Use, make your own)
+victim_gen.sh		script to generate victims data file used by bless_victims.sh
 
-Known Dependencies:  libhdate1, wget, mailutils, SMTP server
+Known Dependencies:  hdate (libhdate1), wget, mailutils, SMTP server
 
 One other dependency is the 'mail' command.  It should be on most modern linux systems, but it is, technically, an 
 optional install.  That and a SNTP server on the system that mail can talk to. On my Debian system I use the 
 instructions here to enable sending mail from the command line.  https://wiki.debian.org/GmailAndExim4
+
+Note that the mail command may require adding the -r switch for use with a regular mail serever, where as 
+it causes errors when using exim4 as a local mail server.
 
 There are some paths/data that may need to be altered to reflect your desired system settings.  They are, by 
 approximate line #
@@ -68,6 +82,8 @@ approximate line #
 In send_blessing.sh  62, 64,
 
 In bless_victims.sh  40, 41, 42, 43
+
+In victim_gen.sh 8, 9, 10
 
 As for moving the directories... 3 paths are recommended.  One for the permanent scripts, one for the data file 
 and one for the temporary data.  Some might want to install the scripts in /usr/bin for all to use, 
@@ -81,9 +97,9 @@ To use:
 Copy these files to some location in your home directory, say $HOME/BDay  Don't forget to adjust the paths described
 above if needed for your system.
 
-Make bless-victims.sh and send_blessing.sh executable
+Make bless-victims.sh, victim_gen, and send_blessing.sh executable
 
-Create the victims data file as described above
+Create the victims data file by either method described above.
 
 Look through the Blessings.txt file adding and/or removing blessings that should be there specific to the victim, 
 you wouldn't want to send provocative blessings to your mother now would you.  Each blessing needs to be at a new 
