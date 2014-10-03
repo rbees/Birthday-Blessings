@@ -26,7 +26,7 @@ COUNT=$6 # COUNT should be equal to AGE. If not, we ran out of blessings.
 
 # Local Variables
 FROM="Crazy Jew"
-TMPDIR="$HOME/BDay/Robin"
+TMPDIR="$HOME/BDay"
 
 # Loop to send emails to email->text gateways
 i=0

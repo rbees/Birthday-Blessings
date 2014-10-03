@@ -4,9 +4,9 @@
 # Name,Current City,Current.State,birthdate(YYYYMMDD),birthtime(HHmmss),M/F,relation,cellcarrier,text-number,salutation,Long,Lat,height,weight,BirthTimezone,BirthCity,BirthState,CurrentTimezone
 #
 
-MAPQUESTKEY="Fmjtd%7Cluur250rn0%2Ca5%3Do5-9w2nu0"
+MAPQUESTKEY="Put your mapquest key here"
 STORDIR="${HOME}/BDay"
-TMPDIR="${HOME}/BDay/Robin"
+TMPDIR="${HOME}/BDay"
 BIN="/bin"
 
 #

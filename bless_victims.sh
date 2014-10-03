@@ -37,10 +37,10 @@ STZONE=`date +%:::z`
 TODAY="${TDAY} ${TMONTH} ${TYEAR} ${TZONE}"
 TotalDayMinutes=1440
 
-MAPQUESTKEY="Fmjtd%7Cluur250rn0%2Ca5%3Do5-9w2nu0"
+MAPQUESTKEY="Put your mapquest key here"
 STORDIR="${HOME}/BDay"
 BINDIR="${HOME}/BDay"
-TMPDIR="${HOME}/BDay/Robin"
+TMPDIR="${HOME}/BDay"
 BIN="/bin"
 
 #
