@@ -4,6 +4,9 @@ Send a preliminary text so that the victim can "Opt-In" to receiving the blessin
 
 Fix the script to schedule sending automatically.
 
+Develop error checking to avoid sending blessing on a Shabbat, and the Hebrew Holidays
+and postpone till the next day.
+
 Separate the salutation part of the blessing off from the blessing and bring it back 
 in as a variable.  Then the salutation, currently "Blessed are You HaShem my G0d, 
 King of the Universe" can be altered more easily by the user.

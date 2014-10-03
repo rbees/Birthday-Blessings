@@ -37,10 +37,10 @@ STZONE=`date +%:::z`
 TODAY="${TDAY} ${TMONTH} ${TYEAR} ${TZONE}"
 TotalDayMinutes=1440
 
-MAPQUESTKEY="Put your mapquest key here"
+MAPQUESTKEY="Fmjtd%7Cluur250rn0%2Ca5%3Do5-9w2nu0"
 STORDIR="${HOME}/BDay"
 BINDIR="${HOME}/BDay"
-TMPDIR="${HOME}/BDay"
+TMPDIR="${HOME}/BDay/Robin"
 BIN="/bin"
 
 #
@@ -54,6 +54,7 @@ fi
 # Read in $STORDIR/vicitms file and process it
 #
 cat ${STORDIR}/victims | while read VICTIM
+echo "some echo"
 do
         #
         # if an empty line is found, terminate reading victims file
@@ -224,20 +225,21 @@ do
                   COUNT=${I}
                   I=999
                 fi
-                #
-                #Convert variables in the blessings to values
-                #
-                Blessing=`echo ${BlText//@AGE@/$AGE}`
-                Blessing=`echo ${Blessing//@NAME@/$Name}`
-                Blessing=`echo ${Blessing//@SEX@/$Sex}`
-
-                #  Column 1 is the plessing ID, Column 2 is for any flags for decision making, Column 3 is the acutal blessing.  
-                Blessing=`echo ${Blessing} | awk -F"|" '{printf("%s",$3)}'`
+#                 #
+#                 #Convert variables in the blessings to values
+#                 #
+#                 Blessing=`echo ${BlText//@AGE@/$AGE}`
+#                 Blessing=`echo ${Blessing//@NAME@/$Name}`
+#                 Blessing=`echo ${Blessing//@SEX@/$Sex}`
+# 
+#                 #  Column 1 is the plessing ID, Column 2 is for any flags for decision making, Column 3 is the acutal blessing.  
+                 Blessing=`echo ${Blessing} | awk -F"|" '{printf("%s",$3)}'`
 
                 #
                 #Store blessing to be sent in temporary file
                 #
-                echo "${Blessing}" > $TMPDIR/$Name.blessing.$I.txt
+#               echo "${Blessing}" > $TMPDIR/$Name.blessing.$I.txt
+                echo "${BlText}" > $TMPDIR/$Name.blessing.$I.txt
         done
         if [ "${COUNT}" == "0" ]; then
            COUNT=${AGE}
@@ -246,9 +248,10 @@ do
         #create job file
         #
         echo "${BIN}/bash ${BINDIR}/send_blessing.sh ${Name} ${AGE} ${Delay} ${Domain} ${PNumber} ${COUNT} &" >> ${TMPDIR}/myjobs.sh
+        chmod +x ${BINDIR}/send_blessing.sh
 done
 
 echo ""
-echo "Processing done.  Run ${TMPDIR}/myjobs.sh at sundown to send them."
+echo "Processing done.  Run ${TMPDIR}/myjobs.sh at ${BTime} on their Hebrew birthday to send them."
 echo ""
 exit 0
