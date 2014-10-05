@@ -22,7 +22,7 @@ AGE=$2
 DELAY=$3
 DOMAIN=$4
 PHONE_NUMBER=$5
-COUNT=$6 # COUNT should be equal to AGE. If not, we ran out of blessings.
+
 
 # Local Variables
 FROM="Crazy Jew"
