@@ -6,13 +6,13 @@
 # Handle insufficient paramters
 SyntaxError() {
     printf "ERROR, insufficient parameters given.\n\n"
-    printf "Syntax: send_blessings.sh <Name> <age> <time between messages> <domain of carrier address> <Cellphone number> <Number of messages to send>"
+    printf "Syntax: send_blessings.sh <Name> <age> <time between messages> <domain of carrier address> <Cellphone number>"
     exit 0
 }
 
 
 # Get Parameters
-if [[ "$#" -ne 6 ]]
+if [[ "$#" -ne 5 ]]
 then
     SyntaxError
 fi
@@ -30,7 +30,7 @@ TMPDIR="$HOME/BDay"
 
 # Loop to send emails to email->text gateways
 i=0
-while [ $i -lt $COUNT ]; do
+while [ $i -lt $AGE ]; do
     mail -s "${NAME}'n Birthday Blessing from ${FROM}" $PHONE_NUMBER@$DOMAIN < $TMPDIR/$NAME.blessing.$i.txt 
     sleep $DELAY
     rm $TMPDIR/$NAME.blessing.$i.txt

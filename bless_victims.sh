@@ -37,7 +37,7 @@ STZONE=`date +%:::z`
 TODAY="${TDAY} ${TMONTH} ${TYEAR} ${TZONE}"
 TotalDayMinutes=1440
 
-MAPQUESTKEY="Put your mapquest key here"
+MAPQUESTKEY="Fmjtd%7Cluur250rn0%2Ca5%3Do5-9w2nu0"
 STORDIR="${HOME}/BDay"
 BINDIR="${HOME}/BDay"
 TMPDIR="${HOME}/BDay"
@@ -210,44 +210,54 @@ do
         #
         #Processing loop to generate blessings
         #
-        I=0
-        COUNT=0
-        while [ ${I} -lt ${Count} ]; do
-                #for now, assumes all blessings are generic.  No M/F, Age, or relational component branches
-                I=$(($I+1))
-                #
-                #Get Blessing from Blessings file
-                #
-                
-                BlText=`egrep -e "^${I}|" ${STORDIR}/Blessings.txt`
-                if [ "${BlText}" == "" ]; then
-                  BlText="999||You have lived so long that you have already received every blessing humanly possible.  It is time to share that blessing and your wisdom with the world."
-                  COUNT=${I}
-                  I=999
-                fi
+#         I=0
+#         COUNT=0
+#         while [ ${I} -lt ${Count} ]; do
+#                 #for now, assumes all blessings are generic.  No M/F, Age, or relational component branches
+#                 I=$(($I+1))
 #                 #
-#                 #Convert variables in the blessings to values
+#                 #Get Blessing from Blessings file
 #                 #
-#                 Blessing=`echo ${BlText//@AGE@/$AGE}`
-#                 Blessing=`echo ${Blessing//@NAME@/$Name}`
-#                 Blessing=`echo ${Blessing//@SEX@/$Sex}`
+#                 
+#                 BlText=`egrep -e "^${I}|" ${STORDIR}/Blessings.txt`
+#                 if [ "${BlText}" == "" ]; then
+#                   BlText="999||You have lived so long that you have already received every blessing humanly possible.  It is time to share that blessing and your wisdom with the world."
+#                   COUNT=${I}
+#                   I=999
+#                 fi
+# #                 #
+# #                 #Convert variables in the blessings to values
+# #                 #
+# #                 Blessing=`echo ${BlText//@AGE@/$AGE}`
+# #                 Blessing=`echo ${Blessing//@NAME@/$Name}`
+# #                 Blessing=`echo ${Blessing//@SEX@/$Sex}`
+# # 
+# #                 #  Column 1 is the plessing ID, Column 2 is for any flags for decision making, Column 3 is the acutal blessing.  
+#                  Blessing=`echo ${Blessing} | awk -F"|" '{printf("%s",$3)}'`
 # 
-#                 #  Column 1 is the plessing ID, Column 2 is for any flags for decision making, Column 3 is the acutal blessing.  
-                 Blessing=`echo ${Blessing} | awk -F"|" '{printf("%s",$3)}'`
+#                 #
+#                 #Store blessing to be sent in temporary file
+#                 #
+# #               echo "${Blessing}" > $TMPDIR/$Name.blessing.$I.txt
+#                 echo "${BlText}" > $TMPDIR/$Name.blessing.$I.txt
+#         done
+#         if [ "${COUNT}" == "0" ]; then
+#            COUNT=${AGE}
+#         fi
 
-                #
-                #Store blessing to be sent in temporary file
-                #
-#               echo "${Blessing}" > $TMPDIR/$Name.blessing.$I.txt
-                echo "${BlText}" > $TMPDIR/$Name.blessing.$I.txt
-        done
-        if [ "${COUNT}" == "0" ]; then
-           COUNT=${AGE}
-        fi
-        #
+	# take only 3rd column
+	cut '-d|' -f3  Blessings.txt |
+	# lines 1 to $AGE
+	head -$AGE |
+	# replace @placeholders@
+	sed "s/@AGE@/$AGE/g;s/@NAME@/$Name/g;s/@SEX@/$Sex/g" |
+	# split blessings into separate files.
+	split --lines=1 --additional-suffix=.txt --numeric-suffixes=1 - "$Name.blessing." 
+
+	#
         #create job file
         #
-        echo "${BIN}/bash ${BINDIR}/send_blessing.sh ${Name} ${AGE} ${Delay} ${Domain} ${PNumber} ${COUNT} &" >> ${TMPDIR}/myjobs.sh
+        echo "${BIN}/bash ${BINDIR}/send_blessing.sh ${Name} ${AGE} ${Delay} ${Domain} ${PNumber} &" >> ${TMPDIR}/myjobs.sh
         chmod +x ${BINDIR}/send_blessing.sh
 done
 
